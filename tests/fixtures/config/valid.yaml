@@ -1,0 +1,9 @@
+mappings:
+  - merchant: "RED CROSS"
+    organization: "American National Red Cross"
+    ein: "53-0196605"
+  - merchant: "UNITED WAY"
+    organization: "United Way Worldwide"
+    ein: "13-1635294"
+  - merchant: "GOODWILL DONATION"
+    organization: "Goodwill Industries International"

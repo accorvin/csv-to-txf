@@ -1,0 +1,6 @@
+Date,Merchant,Category,Account,Original Statement,Notes,Amount,Tags,Owner
+01/15/2026,RED CROSS,Donations,Chase Checking,REDCROSS,,-100.00,tax,John
+01/20/2026,GROCERY STORE,Groceries,Chase Checking,GROCERY,,-50.00,,John
+02/20/2026,UNITED WAY,Donations,Chase Checking,UNITEDWAY,,-200.00,tax,John
+02/25/2026,GAS STATION,Transportation,Chase Checking,GAS,,-30.00,,John
+03/10/2026,GOODWILL DONATION,Donations,Chase Checking,GOODWILL,,-75.00,tax,John

@@ -1,0 +1,43 @@
+{
+  "name": "csv-to-txf",
+  "version": "1.0.0",
+  "description": "CLI tool to convert Monarch Money CSV exports to TXF files for TurboTax",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "csv-to-txf": "./bin/csv-to-txf.js"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsup src/index.ts --format esm --dts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "csv",
+    "txf",
+    "turbotax",
+    "monarch-money",
+    "tax",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "csv-parse": "^5.5.6",
+    "yaml": "^2.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@vitest/coverage-v8": "^1.6.0",
+    "tsup": "^8.1.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3",
+    "vitest": "^1.6.0"
+  }
+}

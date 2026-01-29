@@ -1,0 +1,7 @@
+mappings:
+  - merchant: "RED CROSS"
+    organization: "American National Red Cross"
+    ein: "53-0196605"
+  - merchant: "red cross"
+    organization: "Red Cross of California"
+    ein: "99-9999999"

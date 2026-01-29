@@ -1,0 +1,4 @@
+Date,Merchant,Category,Account,Original Statement,Notes,Amount,Tags,Owner
+01/15/2026,,Donations,Chase Checking,DONATION,,-100.00,tax,John
+,RED CROSS,Donations,Chase Checking,REDCROSS,,,-50.00,,John
+02/20/2026,UNITED WAY,Donations,Chase Checking,PLEDGE,,0.00,tax,John
