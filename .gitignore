@@ -1,5 +1,37 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
+
+# Test coverage
 coverage/
-*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+# User data files (CSV exports, generated TXF)
+*.csv
+*.txf
+!tests/fixtures/csv/*.csv
+
+# Claude Code
+.claude/
+
+# User config (may contain personal org names)
+mappings.yaml
