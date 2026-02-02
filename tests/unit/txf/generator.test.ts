@@ -35,7 +35,7 @@ describe('TxfGenerator', () => {
         'C1',
         'L1',
         '$-100.00',
-        'X01/15/2026 Chase Checking American Red Cross EIN:53-0196605',
+        'XAmerican Red Cross (EIN: 53-0196605)',
         '^'
       ].join('\r\n') + '\r\n';
       expect(record).toBe(expected);
@@ -58,7 +58,7 @@ describe('TxfGenerator', () => {
         account: 'Chase Checking',
         amount: -75.00
       });
-      expect(record).toContain('X01/15/2026 Chase Checking Goodwill Industries\r\n');
+      expect(record).toContain('XGoodwill Industries\r\n');
       expect(record).not.toContain('EIN:');
     });
   });

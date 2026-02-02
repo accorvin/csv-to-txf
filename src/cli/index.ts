@@ -23,6 +23,7 @@ program
   .option('-o, --output <path>', 'Output TXF file path')
   .option('--tax-year <year>', 'Tax year for date validation', '2026')
   .option('--category <name>', 'Filter by category value')
+  .option('--aggregate', 'Combine multiple donations to same organization', false)
   .option('--dry-run', 'Validate without writing output', false)
   .option('-v, --verbose', 'Show detailed processing info', false)
   .option('-q, --quiet', 'Suppress warnings, show errors only', false)
@@ -32,6 +33,7 @@ program
       output: opts.output,
       taxYear: parseInt(opts.taxYear, 10),
       category: opts.category,
+      aggregate: opts.aggregate,
       dryRun: opts.dryRun,
       verbose: opts.verbose,
       quiet: opts.quiet,

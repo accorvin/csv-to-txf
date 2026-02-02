@@ -23,6 +23,30 @@ export interface ConvertOptions {
   dryRun: boolean;
   verbose: boolean;
   quiet: boolean;
+  aggregate: boolean;
+}
+
+function aggregateByOrganization(transactions: TxfTransaction[]): TxfTransaction[] {
+  const aggregated = new Map<string, TxfTransaction>();
+
+  for (const tx of transactions) {
+    const key = tx.organization.toLowerCase();
+    const existing = aggregated.get(key);
+
+    if (existing) {
+      existing.amount += tx.amount;
+    } else {
+      aggregated.set(key, {
+        date: tx.date, // Use first transaction's date
+        organization: tx.organization,
+        ein: tx.ein,
+        account: tx.account,
+        amount: tx.amount,
+      });
+    }
+  }
+
+  return Array.from(aggregated.values());
 }
 
 export interface ConvertResult {
@@ -200,7 +224,7 @@ export async function convert(
   }
 
   // Convert to TXF transactions
-  const txfTransactions: TxfTransaction[] = resolvedTransactions.map(tx => ({
+  let txfTransactions: TxfTransaction[] = resolvedTransactions.map(tx => ({
     date: tx.date,
     organization: tx.organization,
     ein: tx.ein,
@@ -208,11 +232,16 @@ export async function convert(
     amount: tx.amount,
   }));
 
+  // Aggregate by organization if requested
+  if (options.aggregate) {
+    txfTransactions = aggregateByOrganization(txfTransactions);
+  }
+
   // Generate TXF
   const txfContent = generateTxf(txfTransactions, { date: new Date() });
 
   // Calculate summary
-  const totalAmount = resolvedTransactions.reduce((sum, tx) => sum + tx.amount, 0);
+  const totalAmount = txfTransactions.reduce((sum, tx) => sum + tx.amount, 0);
   const uniqueOrgs = new Set(resolvedTransactions.map(tx => tx.organization)).size;
 
   // Write output (unless dry run)
@@ -233,6 +262,25 @@ export async function convert(
     }
   }
 
+  // Print verbose TXF content first (so warnings appear after and stay visible)
+  if (options.verbose) {
+    console.log('');
+    console.log('--- Generated TXF ---');
+    console.log(txfContent);
+    console.log('--- End TXF ---');
+  }
+
+  // Print warnings (always, unless quiet mode)
+  if (!options.quiet && warnings.length > 0) {
+    console.log('');
+    console.log('⚠️  WARNINGS:');
+    console.log('─'.repeat(50));
+    for (const warning of warnings) {
+      console.log(`  • ${warning}`);
+    }
+    console.log('─'.repeat(50));
+  }
+
   // Print summary
   if (!options.quiet) {
     console.log('');
@@ -251,18 +299,6 @@ export async function convert(
       console.log('');
       console.log(`Output written to: ${outputPath}`);
     }
-  }
-
-  if (options.verbose) {
-    console.log('');
-    console.log('Warnings:');
-    for (const warning of warnings) {
-      console.log(`  ${warning}`);
-    }
-
-    console.log('');
-    console.log('Generated TXF:');
-    console.log(txfContent);
   }
 
   return {

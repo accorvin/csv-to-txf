@@ -17,20 +17,16 @@ export function formatAmount(amount: number): string {
 }
 
 export function formatDetailLine(params: DetailLineParams): string {
-  const { date, account, organization, ein } = params;
+  const { organization, ein } = params;
 
   // Truncate organization name to 64 characters
   const truncatedOrg = organization.length > 64
     ? organization.slice(0, 64)
     : organization;
 
-  const dateStr = formatDate(date);
-
-  const parts = [dateStr, account, truncatedOrg];
-
   if (ein) {
-    parts.push(`EIN:${ein}`);
+    return `${truncatedOrg} (EIN: ${ein})`;
   }
 
-  return parts.join(' ');
+  return truncatedOrg;
 }

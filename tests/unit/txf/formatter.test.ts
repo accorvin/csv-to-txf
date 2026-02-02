@@ -61,7 +61,7 @@ describe('TxfFormatter', () => {
         organization: 'American Red Cross',
         ein: '53-0196605'
       });
-      expect(result).toBe('01/15/2026 Chase Checking American Red Cross EIN:53-0196605');
+      expect(result).toBe('American Red Cross (EIN: 53-0196605)');
     });
 
     it('should format detail line without EIN', () => {
@@ -70,7 +70,7 @@ describe('TxfFormatter', () => {
         account: 'Chase Checking',
         organization: 'Goodwill Industries'
       });
-      expect(result).toBe('01/15/2026 Chase Checking Goodwill Industries');
+      expect(result).toBe('Goodwill Industries');
     });
 
     it('should truncate organization names over 64 characters', () => {
@@ -80,18 +80,16 @@ describe('TxfFormatter', () => {
         account: 'Checking',
         organization: longName
       });
-      // Should contain exactly 64 A's
-      const orgPart = result.split(' ').slice(2).join(' ');
-      expect(orgPart).toBe('A'.repeat(64));
+      expect(result).toBe('A'.repeat(64));
     });
 
-    it('should handle empty account gracefully', () => {
+    it('should handle organization name only', () => {
       const result = formatDetailLine({
         date: new Date(2026, 0, 15),
         account: '',
         organization: 'Test Org'
       });
-      expect(result).toBe('01/15/2026  Test Org');
+      expect(result).toBe('Test Org');
     });
   });
 });
